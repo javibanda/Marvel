@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 
 object API  {
-    private const val BASE_URL = "http://gateway.marvel.com"
+    private const val BASE_URL = "http://gateway.marvel.com/"
 
 
     val retrofit: ApiService by lazy{
