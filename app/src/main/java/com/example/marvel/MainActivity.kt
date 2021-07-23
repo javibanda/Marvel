@@ -14,12 +14,11 @@ import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var textView: TextView
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        textView = findViewById(R.id.text)
-        getCurrentData()
+
     }
 
     private fun getCurrentData(): Characters? {
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
                 if (response.code() == 200){
                     Log.d(":::Retro", "paso1")
 
-                    textView.text = response.body()?.status
+
                     response.body()?.status?.let { Log.d(":::Data", it )}
                     data = response.body()
                 }else{
