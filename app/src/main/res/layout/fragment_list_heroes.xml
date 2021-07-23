@@ -6,11 +6,10 @@
     android:layout_height="match_parent"
     tools:context=".fragments.ListHeroesFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="135dp"
-        android:layout_height="14dp"
-        android:text="@string/hello_blank_fragment"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerHeroes"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
