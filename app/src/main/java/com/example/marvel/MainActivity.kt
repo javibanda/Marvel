@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.util.Log
 import com.example.marvel.retrofit.API
 import com.example.marvel.model.characters.Characters
+import com.example.marvel.model.characters.Heroes
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -24,7 +25,11 @@ class MainActivity : AppCompatActivity() {
         call.enqueue(object : Callback<Characters> {
             override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
                 if (response.code() == 200){
-                    Log.d(":::Retro", response.body()?.data?.heroes.toString())
+
+                    for (heroes in response.body()?.data?.heroes!!){
+                        Log.d(":::Retrofit", heroes.toString())
+                    }
+
 
 
                 }else{
