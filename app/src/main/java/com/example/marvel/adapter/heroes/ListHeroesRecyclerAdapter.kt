@@ -10,7 +10,6 @@ import com.example.marvel.model.characters.Heroes
 class ListHeroesRecyclerAdapter(
     private val itemsList: List<Heroes>,
     private val fragment: Fragment,
-    private val listener: AdapterView.OnItemClickListener
 ) : BaseRecyclerAdapter<Heroes, ListHeroesViewHolder>(itemsList){
     override fun getViewHolderLayoutId(viewType: Int) = R.layout.item_hero_list
 
