@@ -3,11 +3,8 @@ package com.example.marvel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.AutoCompleteTextView
-import android.widget.TextView
-import com.example.marvel.interfaces.API
-import com.example.marvel.model.Characters
-import com.example.marvel.model.Data
+import com.example.marvel.retrofit.API
+import com.example.marvel.model.characters.Characters
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -18,22 +15,18 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        getCurrentData()
 
     }
 
-    private fun getCurrentData(): Characters? {
-
-        var data: Characters? = null
-
-        val call = API.retrofit.getCharacters(API.TS, API.API_KEY, API.HASH)
+    private fun getCurrentData(){
+        val call = API.retrofit.getCharacters()
         call.enqueue(object : Callback<Characters> {
             override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
                 if (response.code() == 200){
-                    Log.d(":::Retro", "paso1")
+                    Log.d(":::Retro", response.body()?.data?.heroes.toString())
 
 
-                    response.body()?.status?.let { Log.d(":::Data", it )}
-                    data = response.body()
                 }else{
                     Log.d(":::Retrofit", "ERROR")
                 }
@@ -45,7 +38,6 @@ class MainActivity : AppCompatActivity() {
             }
 
         })
-        return data
     }
 
 
