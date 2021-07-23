@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         textView = findViewById(R.id.text)
-        Log.d(":::Retro", getCurrentData().toString())
+        getCurrentData()
     }
 
     private fun getCurrentData(): Characters? {
