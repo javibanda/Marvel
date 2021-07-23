@@ -1,8 +1,8 @@
 package com.example.marvel.model
 
 data class Item(
-    val name: String,
-    val resourceURI: String
+    val name: String? = null,
+    val resourceURI: String? = null
 
 
 ) {

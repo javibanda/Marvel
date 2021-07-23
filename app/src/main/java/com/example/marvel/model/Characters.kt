@@ -1,13 +1,13 @@
 package com.example.marvel.model
 
 data class Characters(
-    val attributionHTML: String,
-    val attributionText: String,
-    val code: Int,
-    val copyright: String,
+    val attributionHTML: String? = null,
+    val attributionText: String? = null,
+    val code: Int? = null,
+    val copyright: String? = null,
     val `data`: Data,
-    val etag: String,
-    val status: String
+    val etag: String? = null,
+    val status: String? = null
 
 ) {
     override fun toString(): String {

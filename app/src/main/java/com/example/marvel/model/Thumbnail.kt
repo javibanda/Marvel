@@ -1,8 +1,8 @@
 package com.example.marvel.model
 
 data class Thumbnail(
-    val extension: String,
-    val path: String
+    val extension: String? = null,
+    val path: String? = null
 
 
 ) {

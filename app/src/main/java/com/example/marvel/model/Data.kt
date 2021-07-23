@@ -1,11 +1,11 @@
 package com.example.marvel.model
 
 data class Data(
-    val count: Int,
-    val limit: Int,
-    val offset: Int,
-    val results: List<Result>,
-    val total: Int
+    var count: Int,
+    val limit: Int? = null,
+    val offset: Int? = null,
+    val results: List<Result>? = null,
+    val total: Int? = null
 
 
 ) {

@@ -3,41 +3,52 @@ package com.example.marvel
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.AutoCompleteTextView
+import android.widget.TextView
 import com.example.marvel.interfaces.API
+import com.example.marvel.model.Characters
 import com.example.marvel.model.Data
-import com.example.marvel.model.Result
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : AppCompatActivity() {
 
-    private val TS = "1"
-    private val API_KEY = "6253edfe88d0a0142ee64ad46a162160"
-    private val HASH = "97bc35c8096b31be0da8bd253480c66f"
-    private var heeroes: Data? = null
+    private lateinit var textView: TextView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        getHeroes()
+        textView = findViewById(R.id.text)
+        Log.d(":::Retro", getCurrentData().toString())
     }
 
-    private fun getHeroes(){
-        CoroutineScope(Dispatchers.IO).launch {
-            val heroes = API.retrofit.getCharacters(TS, API_KEY, HASH)
+    private fun getCurrentData(): Characters? {
 
-            if (heroes.isSuccessful){
-                heeroes = heroes.body()
+        var data: Characters? = null
 
+        val call = API.retrofit.getCharacters(API.TS, API.API_KEY, API.HASH)
+        call.enqueue(object : Callback<Characters> {
+            override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
+                if (response.code() == 200){
+                    Log.d(":::Retro", "paso1")
 
-                Log.d(":::Retrofit", heroes.toString())
-
-            }else{
-                Log.d(":::Retrofit", "Error")
+                    textView.text = response.body()?.status
+                    response.body()?.status?.let { Log.d(":::Data", it )}
+                    data = response.body()
+                }else{
+                    Log.d(":::Retrofit", "ERROR")
+                }
             }
-        }
 
+            override fun onFailure(call: Call<Characters>, t: Throwable) {
+
+                t.message?.let { Log.d(":::Retrofit", it) }
+            }
+
+        })
+        return data
     }
+
+
 
 }

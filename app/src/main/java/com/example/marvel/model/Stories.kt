@@ -1,10 +1,10 @@
 package com.example.marvel.model
 
 data class Stories(
-    val available: Int,
-    val collectionURI: String,
-    val items: List<ItemXXX>,
-    val returned: Int
+    val available: Int? = null,
+    val collectionURI: String? = null,
+    val items: List<ItemXXX>? = null,
+    val returned: Int? = null
 
 
 ) {

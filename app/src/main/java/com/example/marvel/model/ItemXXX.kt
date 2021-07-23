@@ -1,9 +1,9 @@
 package com.example.marvel.model
 
 data class ItemXXX(
-    val name: String,
-    val resourceURI: String,
-    val type: String
+    val name: String? = null,
+    val resourceURI: String? = null,
+    val type: String? = null
 
 ) {
     override fun toString(): String {

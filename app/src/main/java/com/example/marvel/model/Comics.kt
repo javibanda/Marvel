@@ -1,10 +1,10 @@
 package com.example.marvel.model
 
 data class Comics(
-    val available: Int,
-    val collectionURI: String,
-    val items: List<Item>,
-    val returned: Int
+    val available: Int? = null,
+    val collectionURI: String? = null,
+    val items: List<Item>? = null,
+    val returned: Int? = null
 
 ) {
     override fun toString(): String {
