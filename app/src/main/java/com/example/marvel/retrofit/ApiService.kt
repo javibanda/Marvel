@@ -12,7 +12,9 @@ interface ApiService {
     @GET("/v1/public/characters?")
     fun getCharacters(@Query("ts") ts: String = TS,
                       @Query("apikey") apiKey: String = API_KEY,
-                      @Query("hash") hash: String = HASH
+                      @Query("hash") hash: String = HASH,
+                      @Query("offset") offSet: Int,
+                      @Query("limit") limit: Int
     ): Call<Characters>
 
     companion object{
