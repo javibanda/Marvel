@@ -29,7 +29,9 @@
             android:name="descriptionHero"
             app:argType="string" />
         <argument
-            android:name="urlHero"
+            android:name="thumbnailPath"
+            app:argType="string" />
+        <argument android:name="thumbnailExtension"
             app:argType="string" />
     </fragment>
 </navigation>

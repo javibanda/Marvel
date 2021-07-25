@@ -22,12 +22,13 @@ class ListHeroesViewHolder(itemView: View) : BaseViewHolder(itemView) {
         click(fragment, hero)
     }
 
-    private fun initNavigate(hero: Hero ) =
+    private fun initNavigate(hero: Hero) =
         ListHeroesFragmentDirections.actionListHeroesFragmentToHeroFragment(
             hero.id,
             hero.name,
             hero.description,
-            hero.thumbnail.getUrl()
+            hero.thumbnail.getPath(),
+            hero.thumbnail.getExtension()
         )
 
 
