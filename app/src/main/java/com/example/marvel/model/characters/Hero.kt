@@ -1,10 +1,8 @@
 package com.example.marvel.model.characters
 
-data class Heroes(
+data class Hero(
     val description: String,
     val id: Int,
-    val modified: String,
     val name: String,
-    val resourceURI: String,
     val thumbnail: Thumbnail
 )

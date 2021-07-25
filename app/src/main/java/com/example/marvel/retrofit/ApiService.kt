@@ -2,7 +2,6 @@ package com.example.marvel.retrofit
 
 
 import com.example.marvel.model.characters.Characters
-import com.example.marvel.model.characters.Heroes
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Query
