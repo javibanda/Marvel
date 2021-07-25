@@ -8,6 +8,6 @@ data class Data(
     val count: Int
 ) {
     override fun toString(): String {
-        return "Data(results=$heroes)"
+        return "com.example.marvel.model.comics.Data(results=$heroes)"
     }
 }

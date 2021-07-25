@@ -7,6 +7,6 @@ data class Characters(
     val data: Data
 ) {
     override fun toString(): String {
-        return "Characters(data=$data)"
+        return "com.example.marvel.model.comics.Characters(data=$data)"
     }
 }
