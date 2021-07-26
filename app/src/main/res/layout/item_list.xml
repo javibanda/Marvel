@@ -4,22 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorPrimary"
-    android:layout_marginBottom="5dp">
-
+    android:layout_marginBottom="5dp"
+    android:background="@color/colorPrimary">
 
     <TextView
-        android:id="@+id/txtNameHero"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:id="@+id/txtName"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="center"
         android:text="Name Hero"
         android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imgHero"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.413"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -29,15 +31,14 @@
         app:layout_constraintGuide_percent="0.28" />
 
     <ImageView
-        android:id="@+id/imgHero"
-        android:scaleType="centerCrop"
+        android:id="@+id/img"
         android:layout_width="0dp"
         android:layout_height="110dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

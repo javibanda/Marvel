@@ -2,7 +2,7 @@ package com.example.marvel.retrofit
 
 
 import com.example.marvel.model.characters.Characters
-import com.example.marvel.model.comics.Comics
+import com.example.marvel.model.comics.CharacterDetails
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,21 +18,14 @@ interface ApiService {
                       @Query("limit") limit: Int
     ): Call<Characters>
 
-    @GET("/v1/public/characters/{characterId}/comics?")
-    fun getComics(@Path("characterId") idCharacter: Int,
-                  @Query("limit") limit: Int,
-                  @Query("ts") ts: String = TS,
-                  @Query("apikey") apiKey: String = API_KEY,
-                  @Query("hash") hash: String = HASH
-    ): Call<Comics>
-
-    @GET("/v1/public/characters/{characterId}/series?")
-    fun getSeries(@Path("characterId") idCharacter: Int,
-                  @Query("limit") limit: Int,
-                  @Query("ts") ts: String = TS,
-                  @Query("apikey") apiKey: String = API_KEY,
-                  @Query("hash") hash: String = HASH
-    ): Call<Comics>
+    @GET("/v1/public/characters/{characterId}/{option}?")
+    fun getCharacterDetails(@Path("characterId") idCharacter: Int,
+                            @Path("option") option: String,
+                            @Query("limit") limit: Int,
+                            @Query("ts") ts: String = TS,
+                            @Query("apikey") apiKey: String = API_KEY,
+                            @Query("hash") hash: String = HASH
+    ): Call<CharacterDetails>
 
     private companion object{
         const val TS = "1"

@@ -15,6 +15,7 @@ import com.example.marvel.util.Pages
 import com.example.marvel.model.characters.Characters
 import com.example.marvel.model.characters.Hero
 import com.example.marvel.retrofit.API
+import com.example.marvel.util.Toasts
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -104,7 +105,7 @@ class ListHeroesFragment : Fragment() {
             }
 
             override fun onFailure(call: Call<Characters>, t: Throwable) {
-                t.message?.let { Log.d(":::Retrofit", it) }
+                context?.let { Toasts.showToastNoInternet(it) }
             }
 
         })

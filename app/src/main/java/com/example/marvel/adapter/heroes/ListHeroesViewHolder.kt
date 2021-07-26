@@ -13,8 +13,8 @@ import com.example.marvel.util.loadUrl
 
 class ListHeroesViewHolder(itemView: View) : BaseViewHolder(itemView) {
 
-    private val txtName = itemView.findViewById<TextView>(R.id.txtNameHero)
-    private val imgHero = itemView.findViewById<ImageView>(R.id.imgHero)
+    private val txtName = itemView.findViewById<TextView>(R.id.txtName)
+    private val imgHero = itemView.findViewById<ImageView>(R.id.img)
 
     fun bindHeroes(hero: Hero, fragment: Fragment){
         txtName.text = hero.name

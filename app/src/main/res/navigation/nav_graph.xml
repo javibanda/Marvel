@@ -33,5 +33,18 @@
             app:argType="string" />
         <argument android:name="thumbnailExtension"
             app:argType="string" />
+        <action
+            android:id="@+id/action_heroFragment_to_listComicsAndSeriesFragment"
+            app:destination="@id/listComicsAndSeriesFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/listComicsAndSeriesFragment"
+        android:name="com.example.marvel.fragments.ListCharacterDetails"
+        android:label="fragment_list_comics_and_series"
+        tools:layout="@layout/fragment_list_comics_and_series" >
+        <argument
+            android:name="id_character"
+            app:argType="integer" />
+        <argument android:name="comic_or_serie" />
     </fragment>
 </navigation>
