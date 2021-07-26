@@ -57,7 +57,19 @@ class HeroFragment : Fragment() {
     private fun implementInterface(){
         imgHero.loadUrl(hero.thumbnail.getUrl())
         txtName.text = hero.name
-        txtDescription.text = hero.description
+        setDescription()
+    }
+
+    private fun setDescription(){
+        with(hero){
+            with(txtDescription) {
+                text = if (description == "") {
+                    resources.getString(R.string.no_description)
+                } else {
+                    description
+                }
+            }
+        }
     }
 
 
