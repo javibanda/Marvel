@@ -39,7 +39,12 @@
     </fragment>
     <fragment
         android:id="@+id/listComicsAndSeriesFragment"
-        android:name="com.example.marvel.fragments.ListComicsAndSeriesFragment"
+        android:name="com.example.marvel.fragments.ListCharacterDetails"
         android:label="fragment_list_comics_and_series"
-        tools:layout="@layout/fragment_list_comics_and_series" />
+        tools:layout="@layout/fragment_list_comics_and_series" >
+        <argument
+            android:name="id_character"
+            app:argType="integer" />
+        <argument android:name="comic_or_serie" />
+    </fragment>
 </navigation>

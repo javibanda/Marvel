@@ -10,7 +10,7 @@ class ListHeroesRecyclerAdapter(
     private val itemsList: List<Hero>,
     private val fragment: Fragment,
 ) : BaseRecyclerAdapter<Hero, ListHeroesViewHolder>(itemsList){
-    override fun getViewHolderLayoutId(viewType: Int) = R.layout.item_hero_list
+    override fun getViewHolderLayoutId(viewType: Int) = R.layout.item_list
 
     override fun createViewHolder(view: View, viewType: Int) = ListHeroesViewHolder(view)
 
