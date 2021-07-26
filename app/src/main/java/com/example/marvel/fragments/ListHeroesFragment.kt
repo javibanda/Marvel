@@ -13,7 +13,7 @@ import com.example.marvel.R
 import com.example.marvel.adapter.heroes.ListHeroesRecyclerAdapter
 import com.example.marvel.util.Pages
 import com.example.marvel.model.characters.Characters
-import com.example.marvel.model.characters.Heroes
+import com.example.marvel.model.characters.Hero
 import com.example.marvel.retrofit.API
 import retrofit2.Call
 import retrofit2.Callback
@@ -51,7 +51,7 @@ class ListHeroesFragment : Fragment() {
         btnPrevious()
     }
 
-    private fun initRecyclerViewHeroes(listHeroes: List<Heroes>, changePage: Int, dataCount: Int){
+    private fun initRecyclerViewHeroes(listHeroes: List<Hero>, changePage: Int, dataCount: Int){
         if(page.movePage(changePage, dataCount)){
             val heroesAdapter = ListHeroesRecyclerAdapter(listHeroes, this)
             recyclerHeroes.apply {

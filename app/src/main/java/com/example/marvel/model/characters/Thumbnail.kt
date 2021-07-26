@@ -8,6 +8,11 @@ data class Thumbnail(
 ) {
     fun getUrl(): String = "$path.$extension"
 
+    fun getExtension(): String = extension
+
+    fun getPath(): String = path
+
+
     override fun toString(): String {
         return getUrl()
     }
