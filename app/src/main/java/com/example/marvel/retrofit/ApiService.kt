@@ -26,6 +26,14 @@ interface ApiService {
                   @Query("hash") hash: String = HASH
     ): Call<Comics>
 
+    @GET("/v1/public/characters/{characterId}/series?")
+    fun getSeries(@Path("characterId") idCharacter: Int,
+                  @Query("limit") limit: Int,
+                  @Query("ts") ts: String = TS,
+                  @Query("apikey") apiKey: String = API_KEY,
+                  @Query("hash") hash: String = HASH
+    ): Call<Comics>
+
     private companion object{
         const val TS = "1"
         const val API_KEY = "6253edfe88d0a0142ee64ad46a162160"
