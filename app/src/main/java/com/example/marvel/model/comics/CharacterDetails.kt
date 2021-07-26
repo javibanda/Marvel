@@ -9,8 +9,4 @@ data class CharacterDetails(
     val etag: String,
     val status: String
 
-) {
-    override fun toString(): String {
-        return "Comics(attributionHTML='$attributionHTML', attributionText='$attributionText', code=$code, copyright='$copyright', `data`=$`data`, etag='$etag', status='$status')"
-    }
-}
+)
