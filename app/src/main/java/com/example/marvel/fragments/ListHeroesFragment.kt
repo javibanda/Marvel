@@ -99,7 +99,6 @@ class ListHeroesFragment : Fragment() {
                     initRecyclerViewHeroes(response.body()!!.data.heroes, changePage, count)
                     enableButtons()
                 }else{
-                    Log.d(":::Retrofit", "ERROR")
                     enableButtons()
                 }
             }
