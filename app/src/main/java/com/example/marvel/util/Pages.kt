@@ -2,6 +2,16 @@ package com.example.marvel.util
 
 class Pages(private val limit:Int, private var page: Int) {
 
+    var totalElements: Int = -1
+
+    fun getTotalPages(): Int {
+        return if(totalElements%limit == 0){
+            (totalElements/limit)
+        }else{
+            ((totalElements/limit) + 1)
+        }
+    }
+
     fun getOffSet(page: Int) = (page - 1) * limit
 
     fun movePage(page: Int, count: Int): Boolean{
