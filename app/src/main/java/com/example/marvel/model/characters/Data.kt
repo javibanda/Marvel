@@ -6,5 +6,7 @@ data class Data(
     @SerializedName("results")
     val heroes: List<Hero>,
     @SerializedName("count")
-    val count: Int
+    val count: Int,
+    @SerializedName("total")
+    val total: Int
 )
