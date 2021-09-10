@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.marvel.R
@@ -27,13 +28,13 @@ class ListHeroesFragment : Fragment() {
     private var page = Pages(LIMIT_HEROES, 1)
 
     private lateinit var recyclerHeroes: RecyclerView
-    private lateinit var btnNext: Button
-    private lateinit var btnPrevious: Button
+    private lateinit var progressBar: ProgressBar
+    val HeroList: MutableList<String> = ArrayList()
+
 
     private fun initView(viewInit: View): View? {
         recyclerHeroes = viewInit.findViewById(R.id.recyclerHeroes)
-        btnNext = viewInit.findViewById(R.id.btnNextHeroes)
-        btnPrevious = viewInit.findViewById(R.id.btnPreviousHeroes)
+        progressBar = viewInit.findViewById(R.id.progressBar)
         return viewInit
     }
 
@@ -48,8 +49,7 @@ class ListHeroesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         getDataApi(0)
-        btnNext()
-        btnPrevious()
+
     }
 
     private fun initRecyclerViewHeroes(listHeroes: List<Hero>, changePage: Int, dataCount: Int){
@@ -65,41 +65,26 @@ class ListHeroesFragment : Fragment() {
 
     private fun getProvisionalPage(changePage: Int)=  page.getPage() + changePage
 
-    private fun btnNext(){
-        btnNext.setOnClickListener{
-            disableButtons()
-            getDataApi(1)
 
-        }
-    }
 
-    private fun btnPrevious(){
-        btnPrevious.setOnClickListener {
-            disableButtons()
-            getDataApi(-1)
-        }
-    }
 
-    private fun enableButtons(){
-        btnPrevious.isEnabled = true
-        btnNext.isEnabled = true
-    }
-
-    private fun disableButtons(){
-        btnPrevious.isEnabled = false
-        btnNext.isEnabled = false
-    }
 
     private fun getDataApi(changePage: Int){
-        val call = API.retrofit.getCharacters(offSet = page.getOffSet(getProvisionalPage(changePage)), limit = LIMIT_HEROES)
+        progressBar.visibility = View.VISIBLE
+        val call = API.retrofit.getCharacters(
+            offSet = page.getOffSet(getProvisionalPage(changePage)),
+            limit = LIMIT_HEROES)
         call.enqueue(object : Callback<Characters> {
             override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
                 if (response.code() == 200){
                     val count = response.body()!!.data.count
+                    val total = response.body()!!.data.total
+                    page.totalElements = total
+
+                    Log.d(":::", page.getTotalPages().toString())
+
                     initRecyclerViewHeroes(response.body()!!.data.heroes, changePage, count)
-                    enableButtons()
-                }else{
-                    enableButtons()
+                    progressBar.visibility = View.GONE
                 }
             }
 
