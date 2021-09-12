@@ -1,12 +1,11 @@
 package com.example.marvel.fragments
 
+import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.ProgressBar
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -25,11 +24,11 @@ import retrofit2.Response
 class ListHeroesFragment : Fragment() {
 
 
-    private var page = Pages(LIMIT_HEROES, 1)
-
+    private var page = Pages(LIMIT_HEROES)
     private lateinit var recyclerHeroes: RecyclerView
     private lateinit var progressBar: ProgressBar
-    val HeroList: MutableList<String> = ArrayList()
+    private val heroList: MutableList<Hero> = ArrayList()
+    private var recyclerIsInit = false
 
 
     private fun initView(viewInit: View): View? {
@@ -46,56 +45,91 @@ class ListHeroesFragment : Fragment() {
         return initView(view)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getDataApi(0)
 
+        getDataApi()
+        scrollListener()
     }
 
-    private fun initRecyclerViewHeroes(listHeroes: List<Hero>, changePage: Int, dataCount: Int){
-        if(page.movePage(changePage, dataCount)){
-            val heroesAdapter = ListHeroesRecyclerAdapter(listHeroes, this)
-            recyclerHeroes.apply {
-                layoutManager = LinearLayoutManager(activity)
-                setHasFixedSize(true)
-                adapter = heroesAdapter
+    override fun onDestroyView() {
+        super.onDestroyView()
+        recyclerIsInit = false
+    }
+
+    private fun scrollListener(){
+        recyclerHeroes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                if (isOnLastElementList(recyclerView) && progressBarIsVisible()){
+                    if (page.hasNextPage()){
+                        getDataApi()
+                        page.changePage()
+                    }
+                }
+                super.onScrolled(recyclerView, dx, dy)
             }
+        })
+    }
+
+    private fun isOnLastElementList(recyclerView: RecyclerView): Boolean{
+        val visibleItemCount = recyclerHeroes.childCount
+        val pastVisibleItem = (recyclerView.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+        val totalItems = heroList.size
+        return (visibleItemCount + pastVisibleItem) >= totalItems
+    }
+
+    private fun progressBarIsVisible() = progressBar.visibility != View.VISIBLE
+
+    private fun recyclerViewHeroes(){
+        val heroesAdapter = ListHeroesRecyclerAdapter(heroList, this)
+        if (recyclerIsInit){
+            changeLoadMoreData()
+        }else{
+            initRecyclerViewHeroes(heroesAdapter)
+            recyclerIsInit = true
         }
     }
 
-    private fun getProvisionalPage(changePage: Int)=  page.getPage() + changePage
+    private fun changeLoadMoreData(){
+        recyclerHeroes.adapter!!.notifyDataSetChanged()
+    }
 
+    private fun initRecyclerViewHeroes(heroesAdapter: ListHeroesRecyclerAdapter){
+        recyclerHeroes.apply {
+            layoutManager = LinearLayoutManager(activity)
+            setHasFixedSize(true)
+            adapter = heroesAdapter
+        }
+    }
 
-
-
-
-    private fun getDataApi(changePage: Int){
+    private fun getDataApi(){
         progressBar.visibility = View.VISIBLE
         val call = API.retrofit.getCharacters(
-            offSet = page.getOffSet(getProvisionalPage(changePage)),
+            offSet = page.getOffSet(),
             limit = LIMIT_HEROES)
         call.enqueue(object : Callback<Characters> {
             override fun onResponse(call: Call<Characters>, response: Response<Characters>) {
                 if (response.code() == 200){
-                    val count = response.body()!!.data.count
-                    val total = response.body()!!.data.total
-                    page.totalElements = total
-
-                    Log.d(":::", page.getTotalPages().toString())
-
-                    initRecyclerViewHeroes(response.body()!!.data.heroes, changePage, count)
+                    page.totalElements = response.body()!!.data.total
+                    addHeroes(response.body()!!.data.heroes)
+                    recyclerViewHeroes()
                     progressBar.visibility = View.GONE
                 }
             }
-
             override fun onFailure(call: Call<Characters>, t: Throwable) {
                 context?.let { Toasts.showToastNoInternet(it) }
+                progressBar.visibility = View.GONE
             }
 
         })
     }
 
+    private fun addHeroes(listHeroes: List<Hero>) {
+        for (i in listHeroes) heroList.add(i)
+    }
+
     companion object {
-        private const val LIMIT_HEROES = 50
+        private const val LIMIT_HEROES = 10
     }
 }
