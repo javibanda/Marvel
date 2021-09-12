@@ -5,7 +5,7 @@ class Pages(private val limit:Int) {
     var totalElements: Int = -1
     private var page: Int = 1
 
-    fun getTotalPages(): Int {
+    private fun getTotalPages(): Int {
         return if(totalElements%limit == 0){
             (totalElements/limit)
         }else{
@@ -13,19 +13,11 @@ class Pages(private val limit:Int) {
         }
     }
 
-    fun getOffSet(page: Int) = (page - 1) * limit
-
-    fun movePage(page: Int, count: Int): Boolean{
-        return if (hasNextPage(page, count)){
-            this.page = this.page + page
-            true
-        }else{
-            false
-        }
+    fun changePage(){
+        page++
     }
 
-    fun getPage(): Int = page
+    fun hasNextPage() = (getTotalPages() != page)
 
-    private fun hasNextPage(page: Int, count: Int) = ((this.page + page != 0) && (count > 1))
-
+    fun getOffSet() = (page - 1) * limit
 }
