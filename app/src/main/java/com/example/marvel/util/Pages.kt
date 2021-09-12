@@ -1,20 +1,23 @@
 package com.example.marvel.util
 
-class Pages(private val limit:Int, private var page: Int) {
+class Pages(private val limit:Int) {
 
-    fun getOffSet(page: Int) = (page - 1) * limit
+    var totalElements: Int = -1
+    private var page: Int = 1
 
-    fun movePage(page: Int, count: Int): Boolean{
-        return if (hasNextPage(page, count)){
-            this.page = this.page + page
-            true
+    private fun getTotalPages(): Int {
+        return if(totalElements%limit == 0){
+            (totalElements/limit)
         }else{
-            false
+            ((totalElements/limit) + 1)
         }
     }
 
-    fun getPage(): Int = page
+    fun changePage(){
+        page++
+    }
 
-    private fun hasNextPage(page: Int, count: Int) = ((this.page + page != 0) && (count > 1))
+    fun hasNextPage() = (getTotalPages() != page)
 
+    fun getOffSet() = (page - 1) * limit
 }
