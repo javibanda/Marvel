@@ -1,8 +1,9 @@
 package com.example.marvel.util
 
-class Pages(private val limit:Int, private var page: Int) {
+class Pages(private val limit:Int) {
 
     var totalElements: Int = -1
+    private var page: Int = 1
 
     fun getTotalPages(): Int {
         return if(totalElements%limit == 0){
